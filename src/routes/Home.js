@@ -65,6 +65,7 @@ function Home({ userObj }) {
         {tweets.map((twt) => {
           return (
             <Tweet
+              userObj={twt}
               key={twt.id}
               text={twt.tweet}
               isOwner={twt.creatorId === userObj.uid}
