@@ -7,6 +7,7 @@ import {
   onSnapshot,
   orderBy,
 } from 'firebase/firestore';
+import Tweet from 'components/Tweet';
 
 function Home({ userObj }) {
   const [tweet, setTweet] = useState('');
@@ -47,8 +48,6 @@ function Home({ userObj }) {
     setTweet(value);
   };
 
-  console.log(tweets);
-
   return (
     <div>
       <h1>Home</h1>
@@ -64,7 +63,13 @@ function Home({ userObj }) {
       </form>
       <ul>
         {tweets.map((twt) => {
-          return <li key={twt.id}>{twt.tweet}</li>;
+          return (
+            <Tweet
+              key={twt.id}
+              text={twt.tweet}
+              isOwner={twt.creatorId === userObj.uid}
+            />
+          );
         })}
       </ul>
     </div>
