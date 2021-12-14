@@ -1,9 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { dbService } from 'myFirebase';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query } from 'firebase/firestore';
 
 function Home() {
   const [tweet, setTweet] = useState('');
+  const [tweets, setTweets] = useState([]);
+
+  const getTweets = async (e) => {
+    const q = query(collection(dbService, 'tweets'));
+    const querySnapShot = await getDocs(q);
+    querySnapShot.forEach((doc) => {
+      // tweet의 객체 만들기
+      const tweetObj = {
+        ...doc.data(),
+        id: doc.id,
+      };
+      setTweets((prev) => [tweetObj, ...prev]);
+    });
+  };
+
+  useEffect(() => {
+    getTweets();
+  }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +43,8 @@ function Home() {
     setTweet(value);
   };
 
+  console.log(tweets);
+
   return (
     <div>
       <h1>Home</h1>
@@ -38,6 +58,11 @@ function Home() {
         />
         <input type="submit" value="tweet" />
       </form>
+      <ul>
+        {tweets.map((twt) => {
+          return <li key={twt.id}>{twt.tweet}</li>;
+        })}
+      </ul>
     </div>
   );
 }
