@@ -1,26 +1,29 @@
 import { useState, useEffect } from 'react';
 import { dbService } from 'myFirebase';
-import { addDoc, collection, getDocs, query } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  query,
+  onSnapshot,
+  orderBy,
+} from 'firebase/firestore';
 
-function Home() {
+function Home({ userObj }) {
   const [tweet, setTweet] = useState('');
   const [tweets, setTweets] = useState([]);
 
-  const getTweets = async (e) => {
-    const q = query(collection(dbService, 'tweets'));
-    const querySnapShot = await getDocs(q);
-    querySnapShot.forEach((doc) => {
-      // tweet의 객체 만들기
-      const tweetObj = {
-        ...doc.data(),
-        id: doc.id,
-      };
-      setTweets((prev) => [tweetObj, ...prev]);
-    });
-  };
-
   useEffect(() => {
-    getTweets();
+    const q = query(
+      collection(dbService, 'tweets'),
+      orderBy('createAt', 'desc')
+    );
+    onSnapshot(q, (snapshot) => {
+      const tweetArr = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTweets(tweetArr);
+    });
   }, []);
 
   const onSubmit = async (e) => {
@@ -29,6 +32,7 @@ function Home() {
       const docRef = await addDoc(collection(dbService, 'tweets'), {
         tweet,
         createAt: Date.now(),
+        creatorId: userObj.uid, // 누가 트위터를 올린 유저인지 확인 가능
       });
       console.log('Document witten with ID : ', docRef.id);
     } catch (error) {
