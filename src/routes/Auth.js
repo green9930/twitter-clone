@@ -6,7 +6,6 @@ import {
   GithubAuthProvider,
   signInWithPopup,
 } from 'firebase/auth';
-import { authService } from 'myFirebase';
 import { useState } from 'react';
 
 function Auth() {

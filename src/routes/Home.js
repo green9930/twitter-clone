@@ -67,7 +67,7 @@ function Home({ userObj }) {
             <Tweet
               userObj={twt}
               key={twt.id}
-              text={twt.tweet}
+              message={twt.tweet}
               isOwner={twt.creatorId === userObj.uid}
             />
           );
