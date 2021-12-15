@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import AppRouter from 'components/Router';
+import Footer from 'components/Footer';
 import { authService } from 'myFirebase';
 
 function App() {
@@ -19,8 +20,6 @@ function App() {
     });
   }, []);
 
-  const ThisYear = new Date().getFullYear();
-
   return (
     <>
       {init ? (
@@ -28,7 +27,7 @@ function App() {
       ) : (
         'Initializing...'
       )}
-      <footer>&copy; twitter_clone {ThisYear} </footer>
+      <Footer />
     </>
   );
 }
