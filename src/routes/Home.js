@@ -42,29 +42,28 @@ function Home({ userObj }) {
       const response = await uploadString(fileRef, imgFile, 'data_url');
       // getDownloadURL(response.ref) : 이미지가 저장된 URL 반환
       imageUrl = await getDownloadURL(response.ref);
-
-      console.log(imageUrl);
-
-      const newTweetPosting = {
-        tweet,
-        createAt: Date.now(),
-        creatorId: userObj.uid, // 누가 트위터를 올린 유저인지 확인 가능
-        imageUrl,
-      };
-
-      try {
-        const docRef = await addDoc(
-          collection(dbService, 'tweets'),
-          newTweetPosting
-        );
-        console.log('Document witten with ID : ', docRef.id);
-      } catch (error) {
-        console.error('Error adding document : ', error);
-      }
-
-      setTweet('');
-      setImgFile('');
     }
+    console.log(imageUrl);
+
+    const newTweetPosting = {
+      tweet,
+      createAt: Date.now(),
+      creatorId: userObj.uid, // 누가 트위터를 올린 유저인지 확인 가능
+      imageUrl,
+    };
+
+    try {
+      const docRef = await addDoc(
+        collection(dbService, 'tweets'),
+        newTweetPosting
+      );
+      console.log('Document witten with ID : ', docRef.id);
+    } catch (error) {
+      console.error('Error adding document : ', error);
+    }
+
+    setTweet('');
+    setImgFile('');
   };
 
   const onChange = (e) => {
