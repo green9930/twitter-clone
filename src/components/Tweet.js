@@ -1,18 +1,24 @@
 import { useState } from 'react';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
-import { dbService } from 'myFirebase';
+import { storageService, dbService } from 'myFirebase';
+import { deleteObject, ref } from 'firebase/storage';
 
 const Tweet = ({ userObj, message, isOwner }) => {
   const [editing, setEditing] = useState(false);
   const [newTweet, setNewTweet] = useState(message);
 
   const userRef = doc(dbService, 'tweets', `${userObj.id}`);
+  const urlRef = ref(storageService, userObj.imageUrl);
 
   const onDeleteClick = async () => {
     const confirming = window.confirm(
       'Are you sure you want to delete this tweet?'
     );
-    confirming && (await deleteDoc(userRef));
+
+    if (confirming) {
+      await deleteDoc(userRef);
+      await deleteObject(urlRef);
+    }
   };
 
   const toggleEditing = () => {
@@ -53,6 +59,14 @@ const Tweet = ({ userObj, message, isOwner }) => {
       ) : (
         <>
           <p>{message}</p>
+          {userObj.imageUrl && (
+            <img
+              src={userObj.imageUrl}
+              alt="uploaded file"
+              width="50px"
+              height="auto"
+            />
+          )}
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete Tweet</button>
