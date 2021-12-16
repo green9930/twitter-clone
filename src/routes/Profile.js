@@ -1,18 +1,61 @@
-import { getAuth, signOut } from 'firebase/auth';
+import { useState, useEffect } from 'react';
+import { getAuth, signOut, updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { dbService } from 'myFirebase';
+import { collection, doc, getDocs, query, where } from 'firebase/firestore';
 
-function Profile() {
+function Profile({ userObj }) {
+  const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+
   const navigate = useNavigate();
+  const auth = getAuth();
+  // userObj.displayName === auth.currentUser.displayName
 
   const onLogOutClick = () => {
-    const auth = getAuth();
     signOut(auth);
     navigate('/');
   };
 
+  const getMyTweets = async () => {
+    const q = query(
+      collection(dbService, 'tweets'),
+      // 필터링
+      where('creatorId', '==', userObj.uid)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, '=>', doc.data());
+    });
+  };
+
+  useEffect(() => {
+    getMyTweets();
+  }, []);
+
+  const onChange = (e) => {
+    const { value } = e.target;
+    setNewDisplayName(value);
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (userObj.displayName !== newDisplayName) {
+      await updateProfile(userObj, { displayName: newDisplayName });
+    }
+  };
+
   return (
     <>
-      <h1>My Profile</h1>
+      <h1>{userObj.displayName}'s Profile</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          type="text"
+          onChange={onChange}
+          value={newDisplayName}
+          placeholder="Display Name"
+        />
+        <input type="submit" value="Update Profile" />
+      </form>
       <button onClick={onLogOutClick}>Log out</button>
     </>
   );
