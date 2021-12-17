@@ -7,6 +7,7 @@ function App() {
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
+  const [newUserName, setNewUserName] = useState(''); // 프로필 이름 업데이트용
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
@@ -20,10 +21,18 @@ function App() {
     });
   }, []);
 
+  const refreshUser = () => {
+    setNewUserName(authService.currentUser.displayName);
+  };
+
   return (
     <>
       {init ? (
-        <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
+        <AppRouter
+          isLoggedIn={isLoggedIn}
+          userObj={userObj}
+          refreshUser={refreshUser}
+        />
       ) : (
         'Initializing...'
       )}

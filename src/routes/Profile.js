@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { getAuth, signOut, updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { dbService } from 'myFirebase';
-import { collection, doc, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
-function Profile({ userObj }) {
+function Profile({ userObj, refreshUser }) {
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
 
   const navigate = useNavigate();
@@ -41,6 +41,7 @@ function Profile({ userObj }) {
     e.preventDefault();
     if (userObj.displayName !== newDisplayName) {
       await updateProfile(userObj, { displayName: newDisplayName });
+      refreshUser();
     }
   };
 
