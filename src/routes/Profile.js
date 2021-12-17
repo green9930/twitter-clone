@@ -30,6 +30,7 @@ function Profile({ userObj, refreshUser }) {
 
   useEffect(() => {
     getMyTweets();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onChange = (e) => {
@@ -40,6 +41,9 @@ function Profile({ userObj, refreshUser }) {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (userObj.displayName !== newDisplayName) {
+      if (userObj.displayName === null) {
+        await updateProfile(userObj, { displayName: 'Anonymous' });
+      }
       await updateProfile(userObj, { displayName: newDisplayName });
       refreshUser();
     }

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { storageService, dbService } from 'myFirebase';
 import { deleteObject, ref } from 'firebase/storage';
+import TweetEditor from './TweetEditor';
+import TweetMessage from './TweetMessage';
 
 const Tweet = ({ userObj, message, isOwner }) => {
   const [editing, setEditing] = useState(false);
@@ -25,11 +27,6 @@ const Tweet = ({ userObj, message, isOwner }) => {
     setEditing((prev) => !prev);
   };
 
-  const onChange = (e) => {
-    const { value } = e.target;
-    setNewTweet(value);
-  };
-
   const onSubmit = async (e) => {
     e.preventDefault();
     console.log(newTweet, userObj);
@@ -44,29 +41,14 @@ const Tweet = ({ userObj, message, isOwner }) => {
       {editing ? (
         <>
           <form onSubmit={onSubmit}>
-            <label htmlFor="TweetEditor">Edit yout Tweet </label>
-            <input
-              name="TweetEditor"
-              type="text"
-              value={newTweet}
-              required
-              onChange={onChange}
-            />
+            <TweetEditor setNewTweet={setNewTweet} newTweet={newTweet} />
             <input type="submit" value="Update Tweet" />
           </form>
           <button onClick={toggleEditing}>Cancel</button>
         </>
       ) : (
         <>
-          <p>{message}</p>
-          {userObj.imageUrl && (
-            <img
-              src={userObj.imageUrl}
-              alt="uploaded file"
-              width="50px"
-              height="auto"
-            />
-          )}
+          <TweetMessage message={message} userObj={userObj} />
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete Tweet</button>

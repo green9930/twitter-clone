@@ -10,8 +10,13 @@ function App() {
   const [newUserName, setNewUserName] = useState(''); // 프로필 이름 업데이트용
 
   useEffect(() => {
-    authService.onAuthStateChanged((user) => {
+    authService.onAuthStateChanged(async (user) => {
       if (user) {
+        if (user.displayName === null) {
+          await user.updateProfile({
+            displayName: 'User',
+          });
+        }
         setIsLoggedIn(true);
         setUserObj(user);
       } else {
