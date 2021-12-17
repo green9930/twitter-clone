@@ -3,6 +3,31 @@ import { dbService } from 'myFirebase';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import Tweet from 'components/Tweet';
 import TweetForm from 'components/TweetForm';
+import styled from 'styled-components';
+import { calcRem, deviceSizes } from 'theme/theme';
+import { a11yHidden } from 'styles/mixin';
+
+const HomeContainer = styled.div`
+  width: ${deviceSizes.mobile};
+  /* position: relative; */
+  /* display: flex;
+  flex-direction: column; */
+  /* align-items: center;
+  justify-content: center; */
+  margin: 0 ${calcRem(32)};
+
+  .a11y-hidden {
+    ${a11yHidden}
+  }
+`;
+
+const TweetContainer = styled.ul`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center;
+  justify-content: center; */
+`;
 
 function Home({ userObj }) {
   const [tweets, setTweets] = useState([]);
@@ -24,10 +49,10 @@ function Home({ userObj }) {
   }, []);
 
   return (
-    <div>
-      <h1>Home</h1>
+    <HomeContainer>
+      <h1 className="a11y-hidden">Home</h1>
       <TweetForm userObj={userObj} />
-      <ul>
+      <TweetContainer>
         {tweets.map((twt) => {
           return (
             <Tweet
@@ -38,8 +63,8 @@ function Home({ userObj }) {
             />
           );
         })}
-      </ul>
-    </div>
+      </TweetContainer>
+    </HomeContainer>
   );
 }
 

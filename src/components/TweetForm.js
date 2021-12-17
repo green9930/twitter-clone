@@ -3,6 +3,109 @@ import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import { addDoc, collection } from 'firebase/firestore';
 import { dbService, storageService } from 'myFirebase';
 import { v4 } from 'uuid';
+import styled from 'styled-components';
+import { calcRem, colors } from 'theme/theme';
+import { a11yHidden } from 'styles/mixin';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+
+const TweetFormContainer = styled.form`
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .a11y-hidden {
+    ${a11yHidden}
+  }
+`;
+
+const MentionContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ImageUploadContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: ${calcRem(16)} 0;
+  color: ${colors.blue};
+  font-size: ${calcRem(14)};
+
+  label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      margin-right: ${calcRem(8)};
+    }
+  }
+`;
+
+const MentionInput = styled.input`
+  width: 100%;
+  flex-grow: 1;
+`;
+
+const SubmitBtnContainer = styled.div`
+  background: ${colors.blue};
+  width: ${calcRem(40)};
+  height: ${calcRem(40)};
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 ${calcRem(8)};
+
+  .icon-twitter {
+    width: 100%;
+    color: ${colors.white};
+  }
+
+  :hover {
+    background: ${colors.white};
+    .icon-twitter {
+      color: ${colors.blue};
+    }
+  }
+`;
+
+const SelectedImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: ${calcRem(16)} 0;
+
+  img {
+    width: ${calcRem(240)};
+    height: auto;
+  }
+`;
+
+const ClearBtn = styled.button`
+  background: transparent;
+  color: ${colors.blue};
+  border: transparent;
+  cursor: pointer;
+
+  .icon-x {
+    transform: rotate(45deg);
+    margin: auto 0 auto ${calcRem(8)};
+  }
+
+  :hover,
+  :active {
+    border: transparent;
+    outline: transparent;
+  }
+`;
 
 const TweetForm = ({ userObj }) => {
   const [tweet, setTweet] = useState('');
@@ -70,10 +173,9 @@ const TweetForm = ({ userObj }) => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className="mention-container">
-        <label htmlFor="upload-tweet">Write your Tweeet</label>
-        <input
+    <TweetFormContainer onSubmit={onSubmit}>
+      <MentionContainer>
+        <MentionInput
           type="text"
           name="upload-tweet"
           value={tweet}
@@ -81,24 +183,41 @@ const TweetForm = ({ userObj }) => {
           placeholder="What's on your mind?"
           maxLength={120}
         />
-      </div>
-      <div className="image-container">
-        <label htmlFor="upload-image">Upload Image</label>
+        <SubmitBtnContainer>
+          <label htmlFor="submit-tweet">
+            <FontAwesomeIcon icon={faTwitter} className="icon-twitter" />
+          </label>
+          <input
+            id="submit-tweet"
+            type="submit"
+            value="tweet"
+            className="a11y-hidden"
+          />
+        </SubmitBtnContainer>
+      </MentionContainer>
+      <ImageUploadContainer>
+        <label htmlFor="upload-image">
+          <span>Upload Image</span>
+          <FontAwesomeIcon icon={faPlus} />
+        </label>
         <input
+          id="upload-image"
           type="file"
-          name="upload-image"
           accept="image/*"
           onChange={onFileChange}
+          className="a11y-hidden"
         />
         {imgFile && (
-          <div>
-            <img src={imgFile} width="50px" height="auto" alt="uploaded file" />
-            <button onClick={clearPhoto}>Clear</button>
-          </div>
+          <SelectedImageContainer>
+            <img src={imgFile} alt="uploaded file" />
+            <ClearBtn onClick={clearPhoto}>
+              <span>Clear</span>
+              <FontAwesomeIcon icon={faPlus} className="icon-x" />
+            </ClearBtn>
+          </SelectedImageContainer>
         )}
-      </div>
-      <input type="submit" value="tweet" />
-    </form>
+      </ImageUploadContainer>
+    </TweetFormContainer>
   );
 };
 

@@ -7,13 +7,14 @@ function App() {
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [newUserName, setNewUserName] = useState(''); // 프로필 이름 업데이트용
 
   useEffect(() => {
     authService.onAuthStateChanged(async (user) => {
       if (user) {
         if (user.displayName === null) {
-          await user.updateProfile({
+          user.updateProfile({
             displayName: 'User',
           });
         }
