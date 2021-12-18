@@ -9,11 +9,6 @@ import { a11yHidden } from 'styles/mixin';
 
 const HomeContainer = styled.div`
   width: ${deviceSizes.mobile};
-  /* position: relative; */
-  /* display: flex;
-  flex-direction: column; */
-  /* align-items: center;
-  justify-content: center; */
   margin: 0 ${calcRem(32)};
 
   .a11y-hidden {
@@ -25,8 +20,6 @@ const TweetContainer = styled.ul`
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* align-items: center;
-  justify-content: center; */
 `;
 
 function Home({ userObj }) {
