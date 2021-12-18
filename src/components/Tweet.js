@@ -30,7 +30,19 @@ const UpdateContainer = styled.form`
 
 const UpdateBtnContainer = styled.div`
   color: ${colors.blue};
-  margin: 0 ${calcRem(8)};
+  margin: 0 ${calcRem(12)};
+
+  :hover {
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    animation: spin 3s linear infinite;
+  }
 `;
 
 const CancelBtn = styled.button`
@@ -69,12 +81,11 @@ const TextContainer = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  max-height: ${calcRem(150)};
   overflow: hidden;
 
   img {
     width: 100%;
-    height: auto;
+    object-fit: cover;
   }
 `;
 

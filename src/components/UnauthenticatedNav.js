@@ -15,6 +15,7 @@ const NavItemContainer = styled.li`
   margin: 1rem;
   align-items: center;
 `;
+
 const UnauthenticatedNav = () => {
   return (
     <nav>

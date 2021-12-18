@@ -6,6 +6,7 @@ import TweetForm from 'components/TweetForm';
 import styled from 'styled-components';
 import { calcRem, deviceSizes } from 'theme/theme';
 import { a11yHidden } from 'styles/mixin';
+import { Helmet } from 'react-helmet';
 
 const HomeContainer = styled.div`
   width: ${deviceSizes.mobile};
@@ -43,6 +44,9 @@ function Home({ userObj }) {
 
   return (
     <HomeContainer>
+      <Helmet>
+        <title>Twitter Home</title>
+      </Helmet>
       <h1 className="a11y-hidden">Home</h1>
       <TweetForm userObj={userObj} />
       <TweetContainer>
