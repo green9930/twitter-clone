@@ -72,7 +72,7 @@ const AuthForm = ({ newAccount }) => {
           (userCredential) => {
             const user = userCredential.user;
             const password = userCredential.password;
-            console.log(user, password);
+            // console.log(user, password);
           }
         );
       } else {

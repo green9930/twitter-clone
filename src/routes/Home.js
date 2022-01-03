@@ -6,7 +6,7 @@ import TweetForm from 'components/TweetForm';
 import styled from 'styled-components';
 import { calcRem, deviceSizes } from 'theme/theme';
 import { a11yHidden } from 'styles/mixin';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 const HomeContainer = styled.div`
   width: ${deviceSizes.mobile};

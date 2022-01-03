@@ -137,7 +137,7 @@ const TweetForm = ({ userObj }) => {
         collection(dbService, 'tweets'),
         newTweetPosting
       );
-      console.log('Document witten with ID : ', docRef.id);
+      // console.log('Document witten with ID : ', docRef.id);
     } catch (error) {
       console.error('Error adding document : ', error);
     }

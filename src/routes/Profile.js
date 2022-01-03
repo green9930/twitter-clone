@@ -5,7 +5,7 @@ import { dbService } from 'myFirebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import styled from 'styled-components';
 import { calcRem, colors } from 'theme/theme';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -92,7 +92,7 @@ function Profile({ userObj, refreshUser }) {
     e.preventDefault();
     if (userObj.displayName !== newDisplayName) {
       if (userObj.displayName === null) {
-        await updateProfile(userObj, { displayName: 'Anonymous' });
+        await updateProfile(userObj, { displayName: 'User' });
       }
       await updateProfile(userObj, { displayName: newDisplayName });
       refreshUser();
@@ -102,7 +102,7 @@ function Profile({ userObj, refreshUser }) {
   return (
     <ProfileContainer>
       <Helmet>
-        <title>{userObj.displayName}'s Profile</title>
+        <title>{`${userObj.displayName}s Profile`}</title>
       </Helmet>
       <h1>{userObj.displayName}'s Profile</h1>
       <ProfileUpdateContainer onSubmit={onSubmit}>

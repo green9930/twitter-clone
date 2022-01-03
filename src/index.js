@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import GlobalStyle from 'styles/GlobalStyle';
+import { HelmetProvider } from 'react-helmet-async';
 
 ReactDOM.render(
   <React.StrictMode>
-    <GlobalStyle />
-    <Router basename={process.env.PUBLIC_URL}>
-      <App />
-    </Router>
+    <HelmetProvider>
+      <GlobalStyle />
+      <Router basename={process.env.PUBLIC_URL}>
+        <App />
+      </Router>
+    </HelmetProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

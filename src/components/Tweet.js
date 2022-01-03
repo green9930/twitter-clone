@@ -130,7 +130,6 @@ const Tweet = ({ userObj, message, isOwner }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(newTweet, userObj);
     await updateDoc(userRef, {
       tweet: newTweet,
     });

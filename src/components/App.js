@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import AppRouter from 'components/Router';
 import Footer from 'components/Footer';
-import { authService } from 'myFirebase';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { calcRem, colors } from 'theme/theme';
+import { updateProfile } from 'firebase/auth';
+import { authService } from 'myFirebase';
 
 const Inititializing = styled.div`
   color: ${colors.blue};
@@ -41,7 +42,7 @@ function App() {
     authService.onAuthStateChanged(async (user) => {
       if (user) {
         if (user.displayName === null) {
-          user.updateProfile({
+          await updateProfile(user, {
             displayName: 'User',
           });
         }
