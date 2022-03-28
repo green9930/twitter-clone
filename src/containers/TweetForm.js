@@ -10,103 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 
-const TweetFormContainer = styled.form`
-  width: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  .a11y-hidden {
-    ${a11yHidden}
-  }
-`;
-
-const MentionContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const ImageUploadContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: ${calcRem(16)} 0;
-  color: ${colors.blue};
-  font-size: ${calcRem(14)};
-
-  label {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    span {
-      margin-right: ${calcRem(8)};
-    }
-  }
-`;
-
-const MentionInput = styled.input`
-  width: 100%;
-  flex-grow: 1;
-`;
-
-const SubmitBtnContainer = styled.div`
-  background: ${colors.blue};
-  width: ${calcRem(40)};
-  height: ${calcRem(40)};
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 ${calcRem(8)};
-
-  .icon-twitter {
-    width: 100%;
-    color: ${colors.white};
-  }
-
-  :hover {
-    background: ${colors.white};
-    .icon-twitter {
-      color: ${colors.blue};
-    }
-  }
-`;
-
-const SelectedImageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: ${calcRem(16)} 0;
-
-  img {
-    width: ${calcRem(240)};
-    height: auto;
-  }
-`;
-
-const ClearBtn = styled.button`
-  background: transparent;
-  color: ${colors.blue};
-  border: transparent;
-  cursor: pointer;
-
-  .icon-x {
-    transform: rotate(45deg);
-    margin: auto 0 auto ${calcRem(8)};
-  }
-
-  :hover,
-  :active {
-    border: transparent;
-    outline: transparent;
-  }
-`;
-
 const TweetForm = ({ userObj }) => {
   const [tweet, setTweet] = useState('');
   const [imgFile, setImgFile] = useState('');
@@ -220,5 +123,102 @@ const TweetForm = ({ userObj }) => {
     </TweetFormContainer>
   );
 };
+
+const TweetFormContainer = styled.form`
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .a11y-hidden {
+    ${a11yHidden}
+  }
+`;
+
+const MentionContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ImageUploadContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: ${calcRem(16)} 0;
+  color: ${colors.blue};
+  font-size: ${calcRem(14)};
+
+  label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      margin-right: ${calcRem(8)};
+    }
+  }
+`;
+
+const MentionInput = styled.input`
+  width: 100%;
+  flex-grow: 1;
+`;
+
+const SubmitBtnContainer = styled.div`
+  background: ${colors.blue};
+  width: ${calcRem(40)};
+  height: ${calcRem(40)};
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 ${calcRem(8)};
+
+  .icon-twitter {
+    width: 100%;
+    color: ${colors.white};
+  }
+
+  :hover {
+    background: ${colors.white};
+    .icon-twitter {
+      color: ${colors.blue};
+    }
+  }
+`;
+
+const SelectedImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: ${calcRem(16)} 0;
+
+  img {
+    width: ${calcRem(240)};
+    height: auto;
+  }
+`;
+
+const ClearBtn = styled.button`
+  background: transparent;
+  color: ${colors.blue};
+  border: transparent;
+  cursor: pointer;
+
+  .icon-x {
+    transform: rotate(45deg);
+    margin: auto 0 auto ${calcRem(8)};
+  }
+
+  :hover,
+  :active {
+    border: transparent;
+    outline: transparent;
+  }
+`;
 
 export default TweetForm;
