@@ -7,53 +7,6 @@ import styled from 'styled-components';
 import { calcRem, colors } from 'theme/theme';
 import { Helmet } from 'react-helmet-async';
 
-const ProfileContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 ${calcRem(32)};
-`;
-
-const ProfileUpdateContainer = styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ProfileInput = styled.input`
-  flex-grow: 1;
-  width: 100%;
-  margin-bottom: ${calcRem(8)};
-`;
-
-const ProfileUpdateBtn = styled.input`
-  width: 100%;
-  background: ${colors.blue};
-  color: ${colors.white};
-  margin-bottom: ${calcRem(32)};
-
-  &:hover {
-    background: ${colors.white};
-    color: ${colors.blue};
-  }
-`;
-const LogOutBtn = styled.button`
-  width: 100%;
-  background: ${colors.red};
-  color: ${colors.white};
-  border: 1px solid transparent;
-
-  &:hover {
-    box-sizing: border-box;
-    background: ${colors.white};
-    color: ${colors.red};
-    border: 1px solid ${colors.red};
-  }
-`;
-
 function Profile({ userObj, refreshUser }) {
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
 
@@ -118,5 +71,53 @@ function Profile({ userObj, refreshUser }) {
     </ProfileContainer>
   );
 }
+
+const ProfileContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 ${calcRem(32)};
+`;
+
+const ProfileUpdateContainer = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ProfileInput = styled.input`
+  flex-grow: 1;
+  width: 100%;
+  margin-bottom: ${calcRem(8)};
+`;
+
+const ProfileUpdateBtn = styled.input`
+  width: 100%;
+  background: ${colors.blue};
+  color: ${colors.white};
+  margin-bottom: ${calcRem(32)};
+
+  &:hover {
+    background: ${colors.white};
+    color: ${colors.blue};
+  }
+`;
+
+const LogOutBtn = styled.button`
+  width: 100%;
+  background: ${colors.red};
+  color: ${colors.white};
+  border: 1px solid transparent;
+
+  &:hover {
+    box-sizing: border-box;
+    background: ${colors.white};
+    color: ${colors.red};
+    border: 1px solid ${colors.red};
+  }
+`;
 
 export default Profile;

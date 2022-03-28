@@ -1,35 +1,12 @@
 import { useState, useEffect } from 'react';
-import AppRouter from 'components/Router';
-import Footer from 'components/Footer';
+import AppRouter from 'routes/Router';
+import Footer from 'containers/Footer';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { calcRem, colors } from 'theme/theme';
 import { updateProfile } from 'firebase/auth';
 import { authService } from 'myFirebase';
-
-const Inititializing = styled.div`
-  color: ${colors.blue};
-  margin-top: ${calcRem(32)};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .spinner {
-    margin: ${calcRem(4)};
-
-    @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-      animation: spin 3s linear infinite;
-    }
-  }
-`;
 
 function App() {
   const [init, setInit] = useState(false);
@@ -77,5 +54,28 @@ function App() {
     </>
   );
 }
+
+const Inititializing = styled.div`
+  color: ${colors.blue};
+  margin-top: ${calcRem(32)};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .spinner {
+    margin: ${calcRem(4)};
+
+    @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      animation: spin 3s linear infinite;
+    }
+  }
+`;
 
 export default App;

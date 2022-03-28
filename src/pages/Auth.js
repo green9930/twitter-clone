@@ -5,11 +5,52 @@ import {
   signInWithPopup,
 } from 'firebase/auth';
 import { useState } from 'react';
-import AuthForm from 'components/AuthForm';
+import AuthForm from 'containers/AuthForm';
 import styled from 'styled-components';
 import { calcRem, colors } from 'theme/theme';
 import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+const Auth = () => {
+  const [newAccount, setNewAccount] = useState(true);
+
+  const toggleAccount = () => {
+    setNewAccount((prev) => !prev);
+  };
+
+  const onSocialClick = async (e) => {
+    const { name } = e.target;
+    const auth = getAuth();
+    let provider;
+
+    if (name === 'google') {
+      provider = new GoogleAuthProvider();
+    } else if (name === 'github') {
+      provider = new GithubAuthProvider();
+    }
+
+    await signInWithPopup(auth, provider);
+  };
+
+  return (
+    <>
+      <AuthForm newAccount={newAccount} />
+      <ToggleAccountDisplay onClick={toggleAccount}>
+        {newAccount ? 'Sign In' : 'Create Account'}
+      </ToggleAccountDisplay>
+      <LogInMethodContainer>
+        <LogInMethod name="google" onClick={onSocialClick}>
+          Continue with Google
+          <FontAwesomeIcon className="method-icon" icon={faGoogle} size="1x" />
+        </LogInMethod>
+        <LogInMethod name="github" onClick={onSocialClick}>
+          Continue with Github
+          <FontAwesomeIcon className="method-icon" icon={faGithub} size="1x" />
+        </LogInMethod>
+      </LogInMethodContainer>
+    </>
+  );
+};
 
 const ToggleAccountDisplay = styled.p`
   margin: ${calcRem(16)} 0;
@@ -46,45 +87,5 @@ const LogInMethod = styled.button`
     color: ${colors.white};
   }
 `;
-
-function Auth() {
-  const [newAccount, setNewAccount] = useState(true);
-
-  const toggleAccount = () => {
-    setNewAccount((prev) => !prev);
-  };
-
-  const onSocialClick = async (e) => {
-    const { name } = e.target;
-    const auth = getAuth();
-    let provider;
-
-    if (name === 'google') {
-      provider = new GoogleAuthProvider();
-    } else if (name === 'github') {
-      provider = new GithubAuthProvider();
-    }
-
-    await signInWithPopup(auth, provider);
-  };
-  return (
-    <>
-      <AuthForm newAccount={newAccount} />
-      <ToggleAccountDisplay onClick={toggleAccount}>
-        {newAccount ? 'Sign In' : 'Create Account'}
-      </ToggleAccountDisplay>
-      <LogInMethodContainer>
-        <LogInMethod name="google" onClick={onSocialClick}>
-          Continue with Google
-          <FontAwesomeIcon className="method-icon" icon={faGoogle} size="1x" />
-        </LogInMethod>
-        <LogInMethod name="github" onClick={onSocialClick}>
-          Continue with Github
-          <FontAwesomeIcon className="method-icon" icon={faGithub} size="1x" />
-        </LogInMethod>
-      </LogInMethodContainer>
-    </>
-  );
-}
 
 export default Auth;

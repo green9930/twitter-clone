@@ -1,9 +1,36 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { calcRem, colors, deviceSizes } from 'theme/theme';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faBook, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+const Navigation = ({ userObj }) => {
+  return (
+    <nav>
+      <NavList>
+        <NavItemContainer>
+          <IconContainer>
+            <FontAwesomeIcon icon={faTwitter} size="2x" />
+          </IconContainer>
+          <Link to="/">Home</Link>
+        </NavItemContainer>
+        <NavItemContainer>
+          <IconContainer>
+            <FontAwesomeIcon icon={faUser} size="2x" />
+          </IconContainer>
+          <Link to="/profile">{userObj.displayName}'s Profile</Link>
+        </NavItemContainer>
+        <NavItemContainer>
+          <IconContainer>
+            <FontAwesomeIcon icon={faBook} size="2x" />
+          </IconContainer>
+          <Link to="/MyTweets">MyTweets</Link>
+        </NavItemContainer>
+      </NavList>
+    </nav>
+  );
+};
 
 const NavList = styled.ul`
   display: flex;
@@ -25,26 +52,5 @@ const IconContainer = styled.div`
   height: ${calcRem(8)};
   margin-bottom: ${calcRem(32)};
 `;
-
-const Navigation = ({ userObj }) => {
-  return (
-    <nav>
-      <NavList>
-        <NavItemContainer>
-          <IconContainer>
-            <FontAwesomeIcon icon={faTwitter} size="2x" />
-          </IconContainer>
-          <Link to="/">Home</Link>
-        </NavItemContainer>
-        <NavItemContainer>
-          <IconContainer>
-            <FontAwesomeIcon icon={faUser} size="2x" />
-          </IconContainer>
-          <Link to="/profile">{userObj.displayName}'s Profile</Link>
-        </NavItemContainer>
-      </NavList>
-    </nav>
-  );
-};
 
 export default Navigation;

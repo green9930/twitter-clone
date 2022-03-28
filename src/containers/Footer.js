@@ -1,18 +1,7 @@
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import { calcRem } from 'theme/theme';
-
-const FooterContainer = styled.footer`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: ${calcRem(32)};
-`;
-
-const Copyright = styled.p`
-  margin: ${calcRem(16)} 0;
-`;
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Footer = () => {
   const ThisYear = new Date().getFullYear();
@@ -31,5 +20,16 @@ const Footer = () => {
     </FooterContainer>
   );
 };
+
+const FooterContainer = styled.footer`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: ${calcRem(32)};
+`;
+
+const Copyright = styled.p`
+  margin: ${calcRem(16)} 0;
+`;
 
 export default Footer;

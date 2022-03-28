@@ -8,46 +8,6 @@ import styled from 'styled-components';
 import { calcRem, colors, deviceSizes } from 'theme/theme';
 import { a11yHidden } from 'styles/mixin';
 
-const AuthFormContainer = styled.form`
-  max-width: ${deviceSizes.mobile};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: ${calcRem(8)};
-  margin: 0 ${calcRem(60)};
-
-  .a11y-hidden {
-    ${a11yHidden}
-  }
-`;
-
-const AuthItemContainer = styled.div`
-  width: 100%;
-  flex-grow: 1;
-  margin: ${calcRem(8)} 0;
-`;
-
-const AuthItemInput = styled.input`
-  width: 100%;
-`;
-
-const AuthSubmitInput = styled.input`
-  width: 100%;
-  background: ${colors.blue};
-  color: ${colors.white};
-`;
-
-const ErrorMessageContainer = styled.div`
-  word-break: break-all;
-  p {
-    color: ${colors.red};
-    white-space: pre-line;
-    width: 100%;
-    font-size: ${calcRem(12)};
-  }
-`;
-
 const AuthForm = ({ newAccount }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -126,5 +86,45 @@ const AuthForm = ({ newAccount }) => {
     </>
   );
 };
+
+const AuthFormContainer = styled.form`
+  max-width: ${deviceSizes.mobile};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: ${calcRem(8)};
+  margin: 0 ${calcRem(60)};
+
+  .a11y-hidden {
+    ${a11yHidden}
+  }
+`;
+
+const AuthItemContainer = styled.div`
+  width: 100%;
+  flex-grow: 1;
+  margin: ${calcRem(8)} 0;
+`;
+
+const AuthItemInput = styled.input`
+  width: 100%;
+`;
+
+const AuthSubmitInput = styled.input`
+  width: 100%;
+  background: ${colors.blue};
+  color: ${colors.white};
+`;
+
+const ErrorMessageContainer = styled.div`
+  word-break: break-all;
+  p {
+    color: ${colors.red};
+    white-space: pre-line;
+    width: 100%;
+    font-size: ${calcRem(12)};
+  }
+`;
 
 export default AuthForm;

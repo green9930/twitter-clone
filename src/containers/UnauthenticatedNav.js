@@ -1,20 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-const NavContainer = styled.ul`
-  display: flex;
-  align-items: center;
-  margin: auto;
-`;
-
-const NavItemContainer = styled.li`
-  display: flex;
-  flex-direction: column;
-  margin: 1rem;
-  align-items: center;
-`;
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const UnauthenticatedNav = () => {
   return (
@@ -28,5 +15,18 @@ const UnauthenticatedNav = () => {
     </nav>
   );
 };
+
+const NavContainer = styled.ul`
+  display: flex;
+  align-items: center;
+  margin: auto;
+`;
+
+const NavItemContainer = styled.li`
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  align-items: center;
+`;
 
 export default UnauthenticatedNav;
