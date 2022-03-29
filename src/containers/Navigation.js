@@ -25,7 +25,7 @@ const Navigation = ({ userObj }) => {
           <IconContainer>
             <FontAwesomeIcon icon={faBook} size="2x" />
           </IconContainer>
-          <Link to="/MyTweets">MyTweets</Link>
+          <Link to="/MyTweets">My Tweets</Link>
         </NavItemContainer>
       </NavList>
     </nav>

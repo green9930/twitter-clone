@@ -21,7 +21,7 @@ const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
               path="/profile"
               element={<Profile userObj={userObj} refreshUser={refreshUser} />}
             />
-            <Route path="/MyTweets" element={<MyTweets />} />
+            <Route path="/MyTweets" element={<MyTweets userObj={userObj} />} />
           </>
         ) : (
           <>
